@@ -3,7 +3,7 @@ FROM node:$NODE_VERSION AS build
 
 RUN npm -g install npm@8.x.x
 
-WORKDIR /veritable-holder
+WORKDIR /veritable-verifier
 
 # Install base dependencies
 COPY . .
@@ -18,12 +18,12 @@ FROM node:$NODE_VERSION AS runtime
 
 RUN npm -g install npm@8.x.x
 
-WORKDIR /veritable-holder
+WORKDIR /veritable-verifier
 ENV PORT 3000
 
-COPY --from=build /veritable-holder/build .
+COPY --from=build /veritable-verifier/build .
 
 RUN npm install -g serve
 
 EXPOSE 3000
-CMD ["serve", "/veritable-holder"]
+CMD ["serve", "/veritable-verifier"]

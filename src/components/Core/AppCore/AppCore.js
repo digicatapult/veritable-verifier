@@ -17,15 +17,13 @@ import BreadcrumbWrap from '../../Common/Navigation/BreadcrumbWrap/BreadcrumbWra
 import ConnectivityWrap from '../../Common/Navigation/Connectivity/ConnectivityWrap'
 import ContentSelectorWrap from '../../Common/Misc/ContentSelectorWrap'
 import ContentSelector from '../../Common/Misc/ContentSelector'
+import { VERIFIER_LABEL } from '../../../utils/env'
 
 export default function AppCore({ agent }) {
   const [configuredOrigin, setConfiguredOrigin] = useState('')
   const [data, setData] = useState({})
   const [status, error, startFetchHandler] = useGetServerStatus()
-
-  /* Example of data obj: */
-  /* {"version":"0.7.1","label":"faber.agent", "conductor":{"in_sessions":0,"out_encode":0,
-	"out_deliver":0,"task_active":1,"task_done":816, "task_failed":97,"task_pending":0}} */
+  const persona = `${VERIFIER_LABEL}.agent`
 
   const saveOriginHandler = (insertedOrigin) => {
     const setStoreDataFn = (resData) => {
@@ -75,12 +73,12 @@ export default function AppCore({ agent }) {
         )}
       </NavbarWrap>
       <ConnectivityAndBreadcrumbWrap>
-        <BreadcrumbWrap status={status} persona={data.label} />
+        <BreadcrumbWrap status={status} persona={persona} />
         {status === 'fetched' && (
           <ConnectivityWrap
             serverStatus={status}
             origin={configuredOrigin}
-            persona={data.label}
+            persona={persona}
           />
         )}
       </ConnectivityAndBreadcrumbWrap>
@@ -88,7 +86,7 @@ export default function AppCore({ agent }) {
         <ContentSelector
           status={status}
           origin={configuredOrigin}
-          persona={data.label}
+          persona={persona}
         />
       </ContentSelectorWrap>
       {status === 'error' && <ErrorModal visibility content={error} />}

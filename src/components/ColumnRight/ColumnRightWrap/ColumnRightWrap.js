@@ -8,20 +8,6 @@ import ExchangeRecords from '../ExchangeRecords'
 import useGetLoopedPresentProofRecords from '../../../interface/hooks/use-get-looped-present-proof-records'
 
 export default function ColumnRightWrap({ origin }) {
-  /**
-		const dataConnRecordEventsExample = [ { "conn_id": [ { "ex_id_01":["event123"] }, { "ex_id_02":[".."] } ] } ]
-		const dataConnRecordEvents = [
-			{
-				"c5239f30-6fb5-4674-ac66-4965def5d5ae": [
-					{"8a46ad78-0170-4c43-8998-df1418449600":
-						[ {"updated_at":"2021-11-03 10:49:05.703642Z", "state":"request-sent", "...":".." },
-							{"updated_at":"2021-11-03 10:49:06.212097Z", "state":"presentation-received", "...":".." }, ] },
-					{ "84898ee5-437c-4fdc-b0b5-47087f5eb456": [ ] },
-				]
-			}
-		]
-	*/
-
   const [dataConnRecordEvents, setDataConnRecordEvents] = useState([])
   const [statusRecordEvents, errorRecordEvents, startGetRecordsHandler] =
     useGetLoopedPresentProofRecords()

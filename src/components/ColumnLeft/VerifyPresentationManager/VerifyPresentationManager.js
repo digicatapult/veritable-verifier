@@ -1,7 +1,3 @@
-/**
- * This function is responsible for the form that allows the user to verify the
- * presentation
- */
 export default function VerifyPresentationManager({
   statusRecords,
   selectedExchange,

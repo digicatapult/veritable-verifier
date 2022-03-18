@@ -1,9 +1,3 @@
-/**
- * This function is used to render the dropdown menu for selecting the version of
- * the verification form
- * @returns A form with a dropdown menu that allows the user to select a version of
- * the verification form.
- */
 export default function VerificationVersionManager({
   onSelectedVersion,
   selectedVersion,

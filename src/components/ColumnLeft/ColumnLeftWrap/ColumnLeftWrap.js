@@ -1,9 +1,3 @@
-/**
- *
- * The function renders the handles every element which is related to the
- * verification form.  It is made out of two parts. The first part is the
- * "Send Request" form. The second part is the "Verify Presentation" form.
- */
 import { useState } from 'react'
 import ResetButton from '../ResetButton'
 import VerificationVersionManager from '../VerificationVersionManager'

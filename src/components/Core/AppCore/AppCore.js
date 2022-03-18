@@ -22,7 +22,7 @@ export default function AppCore() {
   const [configuredOrigin, setConfiguredOrigin] = useState('')
   const [data, setData] = useState({})
   const [status, error, startFetchHandler] = useGetServerStatus()
-  const persona = `${VERIFIER_LABEL}.agent`
+  const persona = VERIFIER_LABEL
 
   const saveOriginHandler = (insertedOrigin) => {
     const setStoreDataFn = (resData) => {

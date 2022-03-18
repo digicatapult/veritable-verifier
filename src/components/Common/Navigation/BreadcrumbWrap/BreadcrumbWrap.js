@@ -1,8 +1,3 @@
-/**
- * This function is used to render the breadcrumb for the Agent Issuer, Agent
- * Holder, and Agent Verifier pages
- * @returns A breadcrumb.
- */
 import Breadcrumb from '../../../Breadcrumb'
 
 export default function BreadcrumbWrap({ children, status, persona }) {

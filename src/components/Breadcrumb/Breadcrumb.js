@@ -1,7 +1,3 @@
-/**
- * This function returns a breadcrumb for the application
- * @returns A breadcrumb element.
- */
 export default function Breadcrumb() {
   return (
     <>

@@ -2,7 +2,9 @@
  * `NavbarProfile` is a React component that renders a navbar profile
  * @returns A navbar profile.
  */
-export default function NavbarProfile({ status, data }) {
+import { VERIFIER_LABEL } from '../../../../utils/env'
+
+export default function NavbarProfile({ status }) {
   return (
     <ul className="navbar-nav">
       <li className="nav-item">
@@ -22,9 +24,7 @@ export default function NavbarProfile({ status, data }) {
             <i className="fa fa-md fa-user-circle-o" />
             <span className="text-capitalize small">
               <span>&nbsp;</span>
-              {data.label
-                ? data.label.replace('.', ' ').replace('agent', '')
-                : 'NoLabel'}
+              {VERIFIER_LABEL}
             </span>
           </a>
         )}

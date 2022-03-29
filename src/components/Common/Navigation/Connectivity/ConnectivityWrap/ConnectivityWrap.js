@@ -17,10 +17,11 @@ export default function ConnectivityWrap({
   serverStatus,
   origin,
   persona,
+  connections,
+  setConnections,
 }) {
   const personaPrefix = persona?.toLowerCase().replace('.agent', '')
 
-  const [dataConnections, setDataConnections] = useState(null)
   const [statusConnections, errorConnections, startGetConnectionsHandler] =
     useGetLoopedConn()
   const [invitationData, setInvitationData] = useState('')
@@ -35,13 +36,13 @@ export default function ConnectivityWrap({
   const [statusDelete, deleteError, startDelete] = useDeleteConnections()
 
   useEffect(() => {
-    const setStoreDataFn = (resData) => setDataConnections(resData)
+    const setStoreDataFn = (resData) => setConnections(resData)
     const intervalIdFetch = startGetConnectionsHandler(origin, setStoreDataFn)
     if (statusConnections !== 'started') clearInterval(intervalIdFetch)
     return function clear() {
       return clearInterval(intervalIdFetch)
     }
-  }, [origin, statusConnections, startGetConnectionsHandler])
+  }, [origin, statusConnections, startGetConnectionsHandler, setConnections])
 
   const clickCreateInvHandler = (e) => {
     e.stopPropagation()
@@ -96,7 +97,7 @@ export default function ConnectivityWrap({
               )}
               {!children && serverStatus === 'fetched' && (
                 <li className="nav-item">
-                  {dataConnections && (
+                  {connections.results && (
                     <div className="btn-group nav-link p-0 m-1">
                       <a
                         className="text-primary"
@@ -104,14 +105,14 @@ export default function ConnectivityWrap({
                         href="#/"
                         role="button"
                       >
-                        <ConnectionsActiveCount data={dataConnections} />
+                        <ConnectionsActiveCount data={connections} />
                       </a>
                       <span> &nbsp;Connection(s) </span>
                       <div
                         className="dropdown-menu"
                         style={{ minWidth: '340px', marginLeft: '-170px' }}
                       >
-                        <Connections data={dataConnections} />
+                        <Connections data={connections} />
                       </div>
                     </div>
                   )}
@@ -120,9 +121,9 @@ export default function ConnectivityWrap({
               {!children &&
                 serverStatus === 'fetched' &&
                 statusDelete !== 'error' &&
-                dataConnections?.results?.length > 0 && (
+                connections.results?.length > 0 && (
                   <ConnectionAvatar
-                    data={dataConnections}
+                    data={connections}
                     onDelete={deleteHandler}
                   />
                 )}

@@ -1,18 +1,18 @@
 import { useState } from 'react'
 import ResetButton from '../ResetButton'
-import VerificationVersionManager from '../VerificationVersionManager'
+import PrerequisitesManager from '../PrerequisitesManager'
 import SendRequestFormManager from '../SendRequestFormManager'
 import VerifyPresentationManager from '../VerifyPresentationManager'
-import useGetConn from '../../../interface/hooks/use-get-conn'
 import usePostPresentProofSendRequest from '../../../interface/hooks/use-post-present-proof-send-request'
 import useGetPresentProofRecords from '../../../interface/hooks/use-get-present-proof-records'
 import usePostPresentProofRecordsVerifyPresentation from '../../../interface/hooks/use-post-present-proof-records-verify-presentation'
 
-export default function ColumnLeftWrap({ origin }) {
+export default function ColumnLeftWrap({ origin, connections }) {
   const now = new Date()
   const tomorrow = new Date(+now + 86400000)
 
   const [selectedVersion, setSelectedVersion] = useState('')
+  const [selectedConnection, setSelectedConnection] = useState('')
 
   const [selectedValidity, setSelectedValidity] = useState(
     tomorrow.toISOString().split('T')[0]
@@ -23,9 +23,7 @@ export default function ColumnLeftWrap({ origin }) {
   const [selectedSurname, setSelectedSurname] = useState('')
   const [selectedType, setSelectedType] = useState('')
 
-  const [isDisconnected, setIsDisconnected] = useState(false)
   const [isLockedForm, setIsLockedForm] = useState(false)
-  const [statusConnId, errorConnId, startFetchConnIdHandler] = useGetConn()
 
   const [statusSendReq, setStatusSendReq] = useState('')
   const [errorSendReq, startFetchHandlerSendReq] =
@@ -43,6 +41,7 @@ export default function ColumnLeftWrap({ origin }) {
     usePostPresentProofRecordsVerifyPresentation()
 
   const activatedResetHandler = () => {
+    setSelectedConnection('')
     setSelectedVersion('')
     setSelectedValidity('')
     setSelectedId('')
@@ -54,6 +53,10 @@ export default function ColumnLeftWrap({ origin }) {
   const chooseVersionHandler = (e) => {
     const v = e.target.value
     setSelectedVersion(v)
+  }
+  const chooseConnectionHandler = (e) => {
+    const v = e.target.value
+    setSelectedConnection(v)
   }
   const activatedTodaySwitchHandler = () => {
     const d = now.toISOString().split('T')[0]
@@ -68,35 +71,28 @@ export default function ColumnLeftWrap({ origin }) {
     setIsValidityLocked((previousVal) => !previousVal)
   }
   const submitProofReqHandler = () => {
-    startFetchConnIdHandler(origin, function setStoreDataConnCb(connectionId) {
-      if (!connectionId) {
-        setIsDisconnected(true)
-        return
+    startFetchHandlerSendReq(
+      origin,
+      selectedConnection,
+      selectedId,
+      selectedName,
+      selectedSurname,
+      selectedType,
+      selectedValidity,
+      setStatusSendReq,
+      function setStoreDataSendReqCb(exId) {
+        startFetchHandlerRecords(
+          origin,
+          function setStoreDataRecordsCb(records) {
+            let presExIds = records.map((r) => r.pres_ex_id)
+            presExIds =
+              presExIds.indexOf(exId) > -1 ? presExIds : [...presExIds, exId]
+            setIsLockedForm(true)
+            setDataPresExIds(presExIds)
+          }
+        )
       }
-      setIsDisconnected(false)
-      startFetchHandlerSendReq(
-        origin,
-        connectionId,
-        selectedId,
-        selectedName,
-        selectedSurname,
-        selectedType,
-        selectedValidity,
-        setStatusSendReq,
-        function setStoreDataSendReqCb(exId) {
-          startFetchHandlerRecords(
-            origin,
-            function setStoreDataRecordsCb(records) {
-              let presExIds = records.map((r) => r.pres_ex_id)
-              presExIds =
-                presExIds.indexOf(exId) > -1 ? presExIds : [...presExIds, exId]
-              setIsLockedForm(true)
-              setDataPresExIds(presExIds)
-            }
-          )
-        }
-      )
-    })
+    )
   }
   const toggleSuccessShowHandler = () => {
     setStatusSendReq('idle')
@@ -139,6 +135,11 @@ export default function ColumnLeftWrap({ origin }) {
     setIsLockedForm(false)
   }
 
+  const activeConnections =
+    connections.results?.filter(
+      (connection) => connection.state === 'active'
+    ) || []
+
   return (
     <>
       <div className="col-md-6">
@@ -153,10 +154,13 @@ export default function ColumnLeftWrap({ origin }) {
               </p>
 
               <>
-                <VerificationVersionManager
+                <PrerequisitesManager
                   isLockedForm={isLockedForm}
+                  activeConnections={activeConnections}
                   onSelectedVersion={chooseVersionHandler}
                   selectedVersion={selectedVersion}
+                  onSelectedConnection={chooseConnectionHandler}
+                  selectedConnection={selectedConnection}
                 />
               </>
 
@@ -180,9 +184,7 @@ export default function ColumnLeftWrap({ origin }) {
                   onChangeType={changeTypeHandler}
                   selectedVersion={selectedVersion}
                   submitProofReqHandler={submitProofReqHandler}
-                  statusConnId={statusConnId}
                   statusSendReq={statusSendReq}
-                  isDisconnected={isDisconnected}
                 />
               )}
 
@@ -298,22 +300,6 @@ export default function ColumnLeftWrap({ origin }) {
               </div>
             </div>
           </div>
-        </div>
-      </div>
-
-      <div
-        className={`${errorConnId ? 'd-block' : 'd-none'}`}
-        style={{
-          position: 'fixed',
-          width: '10%',
-          height: '10%',
-          inset: '0px',
-          backgroundColor: 'rgba(0, 0, 0, 0.5)',
-          zIndex: 100,
-        }}
-      >
-        <div className="text-light m-2 p-2">
-          <small>Failed to fetch: {errorConnId}</small>
         </div>
       </div>
 

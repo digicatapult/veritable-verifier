@@ -2,7 +2,9 @@
 
 ## Description
 
-Front-end for a verifier in Veritable. Verifiers in most cases will airports that can validate the issuer so issuer has issuer credentials to holders (drone pilots).
+Front-end for a Verifier ( Miles Long Airport ) in Veritable. Verifiers in most cases will be airports that can validate that the Issuer has successfully issued credentials to the Holder (drone pilots) and that the Holder has the right credentials.
+
+---
 
 ## Getting started
 
@@ -14,11 +16,12 @@ To start the application, run:
 npm run start
 ```
 
+---
+
 ## Testing
 
 > Framework - [CYPRESS](https://docs.cypress.io/)
 There are two types of tests one for React component as per individual basis and integration for testing different flows. The idea is that component test will be triggered after update to branch excluding **main** and integration for release build or after it has been merged with **main**.
-
 
 > Run component tests -> `npm t`
 
@@ -34,12 +37,17 @@ There are two types of tests one for React component as per individual basis and
   - Allows us to mock endpoints of external parties
   - Part of Github checks for all branches excluding **main**
 
+---
+
 #### Local Development
 
-Cypress can also be utilised in local development when you require other services you can mock out `api` responses and run under the watch flag. 
+Cypress can also be utilised in local development when you require other services you can mock out `api` responses and run under the watch flag.
+
 ```sh
 npm run test:dev
 ```
+
+---
 
 ## Interacting with the ACA Swagger API Layer directly
 
@@ -64,3 +72,5 @@ To connect to a custom backend: when first opening the GUI, instead of clicking 
 All the React components / sub-components, in this project are developed using the _folders-as-components_ methodology (this methodology is described in detail here **[NodeJsOrg article](https://nodejs.org/dist/latest-v7.x/docs/api/modules.html#modules_folders_as_modules)**).
 
 That means that every existing React component here has its own folder with an _index.js_ file and the component itself. This makes importing components more elegant. In addition, certain components are grouped inside folders and sub-folders.
+
+---

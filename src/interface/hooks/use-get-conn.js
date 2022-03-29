@@ -9,7 +9,7 @@ export default function useGetConn() {
   const transformData = (retrievedData) => {
     const res = retrievedData.results
     const act = res.filter((c) => c.state === 'active')
-    return act[0]?.connection_id
+    return act
   }
   const statusOptions = ['idle', 'error', 'fetching', 'fetched']
   const [status, setStatus] = useState(statusOptions[0])

@@ -107,6 +107,7 @@ jobs:
       - preconditions
       - lint
       - check-version
+      - integration
     runs-on: ubuntu-latest
     if: ${{ needs.check-version.outputs.is_new_version == 'true' }}
 

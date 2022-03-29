@@ -4,7 +4,11 @@ import './stylesheets/AppTheme.css'
 import AppCore from './components/Core/AppCore'
 
 function App() {
-  return <AppCore />
+  return (
+    <div data-cy="app-core">
+      <AppCore />
+    </div>
+  )
 }
 
 export default App

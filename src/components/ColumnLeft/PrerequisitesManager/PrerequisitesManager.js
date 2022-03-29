@@ -33,25 +33,25 @@ export default function PrerequisitesManager({
               )
             })}
           </select>
-          {selectedConnection && (
-            <>
-              <label htmlFor="version">Verification Form Version:</label>
-              <select
-                name="structure"
-                className="form-control"
-                id="version"
-                onChange={onSelectedVersion}
-                value={selectedVersion}
-                disabled={isLockedForm}
-              >
-                <option value="" disabled>
-                  - Select -
-                </option>
-                <option value={'1'}>Verification Form 1.0</option>
-              </select>
-            </>
-          )}
         </div>
+        {selectedConnection && (
+          <div className="form-group">
+            <label htmlFor="version">Verification Form Version:</label>
+            <select
+              name="structure"
+              className="form-control"
+              id="version"
+              onChange={onSelectedVersion}
+              value={selectedVersion}
+              disabled={isLockedForm}
+            >
+              <option value="" disabled>
+                - Select -
+              </option>
+              <option value={'1'}>Verification Form 1.0</option>
+            </select>
+          </div>
+        )}
       </div>
       <div className="col-md-6">&nbsp;</div>
     </div>

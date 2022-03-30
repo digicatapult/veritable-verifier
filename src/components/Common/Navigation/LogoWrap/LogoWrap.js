@@ -5,8 +5,6 @@
 import Logo from '../../../Logo'
 
 export default function LogoWrap({ children }) {
-  const brandName = <b className="font-weight-bold">Heathrow</b>
-
   return (
     <a
       className="navbar-brand d-none d-md-block"
@@ -14,7 +12,9 @@ export default function LogoWrap({ children }) {
       onClick={(e) => e.preventDefault()}
     >
       {<Logo />}
-      <span>&nbsp; {brandName}</span>
+      <span className="m-4">
+        <b className="m-3">&nbsp;</b>
+      </span>
       {children && children}
     </a>
   )

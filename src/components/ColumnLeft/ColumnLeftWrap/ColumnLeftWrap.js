@@ -10,13 +10,12 @@ import usePostPresentProofRecordsVerifyPresentation from '../../../interface/hoo
 export default function ColumnLeftWrap({ origin, connections }) {
   const now = new Date()
   const tomorrow = new Date(+now + 86400000)
+  const defaultValidity = tomorrow.toISOString().split('T')[0]
 
   const [selectedVersion, setSelectedVersion] = useState('')
   const [selectedConnection, setSelectedConnection] = useState('')
 
-  const [selectedValidity, setSelectedValidity] = useState(
-    tomorrow.toISOString().split('T')[0]
-  )
+  const [selectedValidity, setSelectedValidity] = useState(defaultValidity)
   const [isValidityLocked, setIsValidityLocked] = useState(true)
   const [selectedId, setSelectedId] = useState('')
   const [selectedName, setSelectedName] = useState('')
@@ -43,11 +42,12 @@ export default function ColumnLeftWrap({ origin, connections }) {
   const activatedResetHandler = () => {
     setSelectedConnection('')
     setSelectedVersion('')
-    setSelectedValidity('')
+    setSelectedValidity(defaultValidity)
     setSelectedId('')
     setSelectedName('')
     setSelectedSurname('')
     setSelectedType('')
+    setSelectedExchange('')
   }
 
   const chooseVersionHandler = (e) => {

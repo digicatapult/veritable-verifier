@@ -1,6 +1,6 @@
 {
   "name": "veritable-verifier",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "description": "Front-end for Veritable verifiers",
   "author": "Digital Catapult (https://www.digicatapult.org.uk/)",
   "license": "Apache-2.0",
@@ -9,13 +9,10 @@
     "url": "git+https://github.com/digicatapult/veritable-verifier.git"
   },
   "engines": {
-    "node": "16.x.x",
-    "npm": "8.x.x"
+    "node": "18.x.x",
+    "npm": "9.x.x"
   },
   "dependencies": {
-    "@testing-library/jest-dom": "^5.14.1",
-    "@testing-library/react": "^11.2.7",
-    "@testing-library/user-event": "^12.8.3",
     "buffer": "^6.0.3",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -27,9 +24,6 @@
     "build": "react-scripts build",
     "lint": "$(npm bin)/eslint src/**/*.js",
     "lint:fix": "$(npm bin)/eslint src/**/*.js --fix",
-    "test:dev": "npx cypress open-ct",
-    "test": "npx cypress run-ct --spec 'src/**/*'",
-    "test:integration": "npx cypress run",
     "eject": "react-scripts eject"
   },
   "browserslist": {
@@ -47,9 +41,6 @@
   "devDependencies": {
     "@babel/eslint-parser": "^7.17.0",
     "@babel/preset-react": "^7.16.7",
-    "@cypress/react": "^5.12.4",
-    "@cypress/webpack-dev-server": "^1.8.3",
-    "cypress": "^9.5.3",
     "eslint": "^8.10.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-import": "^2.25.4",

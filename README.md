@@ -1,5 +1,9 @@
 # veritable-verifier
 
+## Deprecation Notice
+This application was deprecated on March 14th 2024, there will be no further dependency or security updates.
+---
+
 ## Description
 
 Front-end for a Verifier ( Miles Long Airport ) in Veritable. Verifiers in most cases will be airports that can validate that the Issuer has successfully issued credentials to the Holder (drone pilots) and that the Holder has the right credentials.
